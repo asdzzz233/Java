@@ -1,0 +1,50 @@
+//思路: 遍历head代表的链表,把每个结点头插到新链表上
+class Node{
+    public int val;
+    public Node next = null;
+    public Node(int val){
+        this.val = val;
+    }    
+    public String toString(){
+        return String.format("Node(%d)",val);
+    }
+    public class List{
+        public Node reverse(Node head){
+            //遍历head代表的链表
+            //把每个结点头插到一个新链表上    
+            Node rhead = null; //新链表的第一个结点,代表新链表
+            Node cur = head; //cur这个引用指向head这个引用所指向的对象
+            //cur = null 则停止
+            while(cur != null){
+                //记录cur原来的下一个结点,因为马上要更改 cur.next
+                Node next = cur.next;
+                //把cur头插到rhead代表的链表上
+                //cur指向的结点的next应该是原来的第一个结点
+                cur.next = rhead;
+                //cur指向的结点 成为新的第一个结点
+                //rhead指向新的第一个结点
+                rhead = cur;
+                //让cur指向cur原来的下一个结点
+                cur = next;
+            }
+            return rhead;
+    }           
+    private static Node createList(){
+        Node n1 = new Node(val:1);
+        Node n2 = new Node(val:2);
+        Node n3 = new Node(val:3);
+        Node n4 = new Node(val:4);
+        
+        n1.next = n2; n2.next = n3; n3.next = n4;
+        
+        return n1;
+    }
+    public static void main(String[] args){
+        Node n1 = createList(); //调用的是 静态方法
+        Node rhead = new List().reverse(n1); //调用的是 普通方法
+        
+        //打印链表
+        for(Node c = rhead; c != null; c = c.next){
+            System.out.println(c);
+        }
+    }
